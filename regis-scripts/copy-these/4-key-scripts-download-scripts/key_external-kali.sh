@@ -57,10 +57,36 @@ fi
 # Download the public key files for the specified external-kali
 curl http://$LOGGING_SERVER_IP:8000/$KEY_FILE_1 -o /home/logging/.ssh/pub_keys/$KEY_FILE_1
 curl http://$LOGGING_SERVER_IP:8000/$KEY_FILE_2 -o /home/logging/.ssh/pub_keys/$KEY_FILE_2
+
 chown logging:logging /home/logging/.ssh/pub_keys/$KEY_FILE_1 /home/logging/.ssh/pub_keys/$KEY_FILE_2
 chmod 600 /home/logging/.ssh/pub_keys/$KEY_FILE_1 /home/logging/.ssh/pub_keys/$KEY_FILE_2
 
 echo "Downloaded public keys for external-kali."
+
+curl http://$LOGGING_SERVER_IP:8000/scripts.tar.gz -o /home/logging/scripts.tar.gz
+echo "Downloaded scripts.tar.gz."
+
+extract_to_folder() {
+    local file="$1"
+    local folder=$(basename "$file" .tar.gz)
+    
+    if [ ! -f "$file" ]; then
+        echo "Error: File $file not found"
+        return 1
+    fi
+    
+    cd /home/logging
+    mkdir -p "$folder"
+    tar -xzf "$file" -C "$folder"
+    chown -R logging:logging "$folder"
+    echo "Extracted $file to $folder/"
+}
+
+
+echo "Extracting scripts.tar.gz..."
+extract_to_folder /home/logging/scripts.tar.gz
+
+rm -f /home/logging/.ssh/authorized_keys
 
 rm -f /home/logging/.ssh/authorized_keys
 

@@ -16,11 +16,33 @@ chmod 700 /home/logging/.ssh/pub_keys
 # Download the two public key files for shell-ftp
 curl http://$LOGGING_SERVER_IP:8000/key_shell-ftp_1.pub -o /home/logging/.ssh/pub_keys/key_shell-ftp_1.pub
 curl http://$LOGGING_SERVER_IP:8000/key_shell-ftp_2.pub -o /home/logging/.ssh/pub_keys/key_shell-ftp_2.pub
-curl http://$LOGGING_SERVER_IP:8000/scripts.tar.gz -o /home/logging/scripts.tar.gz
+
 chown logging:logging /home/logging/.ssh/pub_keys/key_shell-ftp_1.pub /home/logging/.ssh/pub_keys/key_shell-ftp_2.pub
 chmod 600 /home/logging/.ssh/pub_keys/key_shell-ftp_1.pub /home/logging/.ssh/pub_keys/key_shell-ftp_2.pub
 
 echo "Downloaded public keys for shell-ftp."
+
+curl http://$LOGGING_SERVER_IP:8000/scripts.tar.gz -o /home/logging/scripts.tar.gz
+echo "Downloaded scripts.tar.gz."
+
+extract_to_folder() {
+    local file="$1"
+    local folder=$(basename "$file" .tar.gz)
+    
+    if [ ! -f "$file" ]; then
+        echo "Error: File $file not found"
+        return 1
+    fi
+    
+    cd /home/logging
+    mkdir -p "$folder"
+    tar -xzf "$file" -C "$folder"
+    chown -R logging:logging "$folder"
+    echo "Extracted $file to $folder/"
+}
+
+echo "Extracting scripts.tar.gz..."
+extract_to_folder /home/logging/scripts.tar.gz
 
 rm -f /home/logging/.ssh/authorized_keys
 
