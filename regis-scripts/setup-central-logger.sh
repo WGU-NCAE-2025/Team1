@@ -31,14 +31,21 @@ LOGGINGUSER="logging"
 SCRIPT_SRC="."
 SCRIPT_DIR="/home/$LOGGINGUSER/scripts"
 
+
 # setup logging user
-source $SCRIPT_SRC/cfg/config-logging-user.sh
+#source $SCRIPT_SRC/cfg/config-logging-user.sh
 source $SCRIPT_SRC/cfg/config-rsyslog.sh
 source $SCRIPT_SRC/cfg/config-journald.sh
 source $SCRIPT_SRC/cfg/central-cp-units.sh
-source $SCRIPT_SRC/cfg/config-network.sh $team_number $ip_address $subnet_mask
+#source $SCRIPT_SRC/cfg/config-network.sh $team_number $ip_address $subnet_mask
 
 source $SCRIPT_SRC/importFiles.sh
+mkdir -p /home/$LOGGINGUSER/.ssh/pub_keys
+
+# Copy the script files to the logging user's pub_keys directory for later download
+tar -czvf /home/$LOGGINGUSER/.ssh/pub_keys/scripts.tar.gz $SCRIPT_SRC
+#cp -rf $SCRIPT_SRC /home/$LOGGINGUSER/.ssh/pub_keys/scripts
+
 
 #cp -rf $SCRIPT_SRC $SCRIPT_DIR
 #chown -R $LOGGINGUSER:$LOGGINGUSER $SCRIPT_DIR

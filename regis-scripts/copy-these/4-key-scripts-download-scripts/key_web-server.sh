@@ -16,6 +16,7 @@ chmod 700 /home/logging/.ssh/pub_keys
 # Download the two public key files for web-server
 curl http://$LOGGING_SERVER_IP:8000/key_web-server_1.pub -o /home/logging/.ssh/pub_keys/key_web-server_1.pub
 curl http://$LOGGING_SERVER_IP:8000/key_web-server_2.pub -o /home/logging/.ssh/pub_keys/key_web-server_2.pub
+curl http://$LOGGING_SERVER_IP:8000/scripts.tar.gz -o /home/logging/scripts.tar.gz
 chown logging:logging /home/logging/.ssh/pub_keys/key_web-server_1.pub /home/logging/.ssh/pub_keys/key_web-server_2.pub
 chmod 600 /home/logging/.ssh/pub_keys/key_web-server_1.pub /home/logging/.ssh/pub_keys/key_web-server_2.pub
 

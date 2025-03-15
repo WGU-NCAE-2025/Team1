@@ -27,11 +27,11 @@ IP_BACKUP_SERVER="192.168.${TEAM}.15"
 if [ "$IP" == "$IP_MICROTIK" ]; then
     HOST="microtik"
 elif [ "$IP" == "$IP_EXTERNAL_KALI" ]; then
-    HOST="external-kali"
+    HOST="external-kali-1"
 elif [ "$IP" == "$IP_SHELL_FTP" ]; then
     HOST="shell-ftp"
 elif [ "$IP" == "$IP_INTERNAL_KALI" ]; then
-    HOST="internal-kali"
+    HOST="internal-kali-1"
 elif [ "$IP" == "$IP_WEB_SERVER" ]; then
     HOST="web-server"
 elif [ "$IP" == "$IP_DATABASE_SERVER" ]; then
@@ -51,6 +51,7 @@ REMOTE_LOG_DIR="/var/log/aggregated"
 # Local base directory on the central logging server where logs will be stored
 LOCAL_BASE="/var/log/aggregated"
 LOCAL_DIR="${LOCAL_BASE}/${HOST}"
+LOCAL_BACKUP_DIR="/home/logging/backups"
 #LOCAL_DIR="${LOCAL_BASE}"
 
 echo "Polling logs from endpoint ${HOST} at IP ${IP} for team ${TEAM}..."
@@ -61,11 +62,23 @@ mkdir -p "${LOCAL_DIR}"
 
 if [ "$IP" == "$IP_MICROTIK" ]; then
     echo -e "\n\nIt's a microtik! Do something else!\n\n"
+    sftp -i "$SSH_KEY" -o ConnectTimeout=5 logging@"${IP}" <<EOF
+    lcd ${LOCAL_DIR}
+    cd /log
+    lcd ${LOCAL_BACKUP_DIR}
+    get *
+    cd /file
+    get *.backup
+    bye
+EOF
 else
     # Use SFTP in batch mode to download all files from the remote log directory.
     sftp -i "$SSH_KEY" -o ConnectTimeout=5 logging@"${IP}" <<EOF
     lcd ${LOCAL_DIR}
     cd ${REMOTE_LOG_DIR}
+    get *
+    lcd ${LOCAL_BACKUP_DIR}
+    cd /home/logging/backups
     get *
     bye
 EOF

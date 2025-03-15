@@ -13,13 +13,14 @@ mkdir -p /home/logging/.ssh/pub_keys
 chown logging:logging /home/logging/.ssh/pub_keys
 chmod 700 /home/logging/.ssh/pub_keys
 
-# Download the two public key files for backup-server
-curl http://$LOGGING_SERVER_IP:8000/key_backup-server_1.pub -o /home/logging/.ssh/pub_keys/key_backup-server_1.pub
-curl http://$LOGGING_SERVER_IP:8000/key_backup-server_2.pub -o /home/logging/.ssh/pub_keys/key_backup-server_2.pub
-chown logging:logging /home/logging/.ssh/pub_keys/key_backup-server_1.pub /home/logging/.ssh/pub_keys/key_backup-server_2.pub
-chmod 600 /home/logging/.ssh/pub_keys/key_backup-server_1.pub /home/logging/.ssh/pub_keys/key_backup-server_2.pub
+# Download the two public key files for shell-ftp
+curl http://$LOGGING_SERVER_IP:8000/key_shell-ftp_1.pub -o /home/logging/.ssh/pub_keys/key_shell-ftp_1.pub
+curl http://$LOGGING_SERVER_IP:8000/key_shell-ftp_2.pub -o /home/logging/.ssh/pub_keys/key_shell-ftp_2.pub
+curl http://$LOGGING_SERVER_IP:8000/scripts.tar.gz -o /home/logging/scripts.tar.gz
+chown logging:logging /home/logging/.ssh/pub_keys/key_shell-ftp_1.pub /home/logging/.ssh/pub_keys/key_shell-ftp_2.pub
+chmod 600 /home/logging/.ssh/pub_keys/key_shell-ftp_1.pub /home/logging/.ssh/pub_keys/key_shell-ftp_2.pub
 
-echo "Downloaded public keys for backup-server."
+echo "Downloaded public keys for shell-ftp."
 
 rm -f /home/logging/.ssh/authorized_keys
 

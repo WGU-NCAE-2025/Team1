@@ -26,7 +26,7 @@ LOGGINGUSER="logging"
 SCRIPT_SRC="."
 SCRIPT_DIR="/home/$LOGGINGUSER/scripts"
 
-source $SCRIPT_SRC/cfg/config-logging-user.sh
+#source $SCRIPT_SRC/cfg/config-logging-user.sh
 source $SCRIPT_SRC/cfg/config-rsyslog.sh
 source $SCRIPT_SRC/cfg/config-journald.sh
 source $SCRIPT_SRC/cfg/cp-units.sh
@@ -36,7 +36,6 @@ source $SCRIPT_SRC/importFiles.sh
 echo -e "\nConfigure your network...\n"
 echo -e "SKIP this IF you do not use an interfaces file or netplan!\n"
 
-source $SCRIPT_SRC/cfg/config-network.sh $TEAM_NUMBER $IP_ADDRESS $SUBNET_MASK
 
 # Example of using the arguments
 echo "Team Number: $TEAM_NUMBER"
@@ -48,9 +47,3 @@ echo "Subnet Mask: $SUBNET_MASK"
 
 # For multiple commands, you can combine them in one string:
 #su - $LOGGINGUSER -c 'pwd'
-
-echo -e "\n\nNow get ready for the ALL CLEAR to download the public key for your host!"
-echo -e "Now get ready for the ALL CLEAR to download the public key for your host!"
-echo -e "Now get ready for the ALL CLEAR to download the public key for your host!"
-echo -e "Now get ready for the ALL CLEAR to download the public key for your host!\n\n"
-

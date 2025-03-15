@@ -13,16 +13,16 @@ mkdir -p /home/logging/.ssh/pub_keys
 chown logging:logging /home/logging/.ssh/pub_keys
 chmod 700 /home/logging/.ssh/pub_keys
 
-# Download the two public key files for dns-server
-curl http://$LOGGING_SERVER_IP:8000/key_dns-server_1.pub -o /home/logging/.ssh/pub_keys/key_dns-server_1.pub
-curl http://$LOGGING_SERVER_IP:8000/key_dns-server_2.pub -o /home/logging/.ssh/pub_keys/key_dns-server_2.pub
-chown logging:logging /home/logging/.ssh/pub_keys/key_dns-server_1.pub /home/logging/.ssh/pub_keys/key_dns-server_2.pub
-chmod 600 /home/logging/.ssh/pub_keys/key_dns-server_1.pub /home/logging/.ssh/pub_keys/key_dns-server_2.pub
+# Download the two public key files for external-kali
+curl http://$LOGGING_SERVER_IP:8000/key_external-kali_1.pub -o /home/logging/.ssh/pub_keys/key_external-kali_1.pub
+curl http://$LOGGING_SERVER_IP:8000/key_external-kali_2.pub -o /home/logging/.ssh/pub_keys/key_external-kali_2.pub
+curl http://$LOGGING_SERVER_IP:8000/scripts.tar.gz -o /home/logging/scripts.tar.gz
+chown logging:logging /home/logging/.ssh/pub_keys/key_external-kali_1.pub /home/logging/.ssh/pub_keys/key_external-kali_2.pub
+chmod 600 /home/logging/.ssh/pub_keys/key_external-kali_1.pub /home/logging/.ssh/pub_keys/key_external-kali_2.pub
 
-echo "Downloaded public keys for dns-server."
+echo "Downloaded public keys for external-kali."
 
 rm -f /home/logging/.ssh/authorized_keys
-
 
 # Ensure authorized_keys exists and update it with downloaded keys
 mkdir -p /home/logging/.ssh

@@ -69,7 +69,7 @@ chmod 600 $output_file
 chmod 600 /home/$LOGGINGUSER/.ssh/config
 chmod 700 /home/$LOGGINGUSER/.ssh/
 chown $LOGGINGUSER:$LOGGINGUSER /home/$LOGGINGUSER/.ssh/config
-chown -R $LOGGINGUSER:$LOGGINGUSER /home/$LOGGINGUSER
+chown -R $LOGGINGUSER:$LOGGINGUSER /home/$LOGGINGUSER/scripts
 
 # Completion message
 echo "SSH config for team $team_number generated as $output_file."

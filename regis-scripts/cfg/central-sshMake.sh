@@ -46,8 +46,8 @@ done
 # Ensure correct permissions for ~/.ssh/config
 chmod 600 /home/$LOGGINGUSER/.ssh/config
 chmod 700 /home/$LOGGINGUSER/.ssh/
-chown $LOGGINGUSER:$LOGGINGUSER /home/$LOGGINGUSER/.ssh/config
-chown -R $LOGGINGUSER:$LOGGINGUSER /home/$LOGGINGUSER
+chown -R $LOGGINGUSER:$LOGGINGUSER /home/$LOGGINGUSER/.ssh/
+chown -R $LOGGINGUSER:$LOGGINGUSER /home/$LOGGINGUSER/scripts
 
 
 echo "SSH keys distributed to inconspicuous locations, public keys moved to ~/.ssh/pub_keys, and config updated."
