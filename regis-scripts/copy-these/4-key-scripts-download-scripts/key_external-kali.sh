@@ -5,6 +5,15 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
+# Check if IP address is provided as an argument
+if [ -z "$1" ]; then
+    echo "Usage: $0 <YOUR CURRENT HOST'S IP_ADDRESS. YOUR IP. SERIOUSLY - YOUR IP, NOT ANY OTHER IP>"
+    exit 1
+fi
+
+# Set IP address from command-line argument
+IP_ADDRESS=$1
+
 # Prompt for the Central Logging Server IP address
 read -p "Enter the Central Logging Server IP: " LOGGING_SERVER_IP
 
@@ -13,12 +22,43 @@ mkdir -p /home/logging/.ssh/pub_keys
 chown logging:logging /home/logging/.ssh/pub_keys
 chmod 700 /home/logging/.ssh/pub_keys
 
-# Download the two public key files for external-kali
-curl http://$LOGGING_SERVER_IP:8000/key_external-kali_1.pub -o /home/logging/.ssh/pub_keys/key_external-kali_1.pub
-curl http://$LOGGING_SERVER_IP:8000/key_external-kali_2.pub -o /home/logging/.ssh/pub_keys/key_external-kali_2.pub
-curl http://$LOGGING_SERVER_IP:8000/scripts.tar.gz -o /home/logging/scripts.tar.gz
-chown logging:logging /home/logging/.ssh/pub_keys/key_external-kali_1.pub /home/logging/.ssh/pub_keys/key_external-kali_2.pub
-chmod 600 /home/logging/.ssh/pub_keys/key_external-kali_1.pub /home/logging/.ssh/pub_keys/key_external-kali_2.pub
+# Define IP variables
+IP_EXTERNAL_KALI_1="172.18.15.161"
+IP_EXTERNAL_KALI_2="172.18.15.162"
+IP_EXTERNAL_KALI_3="172.18.15.163"
+IP_EXTERNAL_KALI_4="172.18.15.164"
+IP_EXTERNAL_KALI_5="172.18.15.165"
+IP_EXTERNAL_KALI_6="172.18.15.166"
+
+# Determine the key file based on the provided IP
+if [ "$IP_ADDRESS" == "$IP_EXTERNAL_KALI_1" ]; then
+    KEY_FILE_1="key_external-kali-1_1.pub"
+    KEY_FILE_2="key_external-kali-1_2.pub"
+elif [ "$IP_ADDRESS" == "$IP_EXTERNAL_KALI_2" ]; then
+    KEY_FILE_1="key_external-kali-2_1.pub"
+    KEY_FILE_2="key_external-kali-2_2.pub"
+elif [ "$IP_ADDRESS" == "$IP_EXTERNAL_KALI_3" ]; then
+    KEY_FILE_1="key_external-kali-3_1.pub"
+    KEY_FILE_2="key_external-kali-3_2.pub"
+elif [ "$IP_ADDRESS" == "$IP_EXTERNAL_KALI_4" ]; then
+    KEY_FILE_1="key_external-kali-4_1.pub"
+    KEY_FILE_2="key_external-kali-4_2.pub"
+elif [ "$IP_ADDRESS" == "$IP_EXTERNAL_KALI_5" ]; then
+    KEY_FILE_1="key_external-kali-5_1.pub"
+    KEY_FILE_2="key_external-kali-5_2.pub"
+elif [ "$IP_ADDRESS" == "$IP_EXTERNAL_KALI_6" ]; then
+    KEY_FILE_1="key_external-kali-6_1.pub"
+    KEY_FILE_2="key_external-kali-6_2.pub"
+else
+    echo "Error: IP address does not match any known external-kali IPs."
+    exit 1
+fi
+
+# Download the public key files for the specified external-kali
+curl http://$LOGGING_SERVER_IP:8000/$KEY_FILE_1 -o /home/logging/.ssh/pub_keys/$KEY_FILE_1
+curl http://$LOGGING_SERVER_IP:8000/$KEY_FILE_2 -o /home/logging/.ssh/pub_keys/$KEY_FILE_2
+chown logging:logging /home/logging/.ssh/pub_keys/$KEY_FILE_1 /home/logging/.ssh/pub_keys/$KEY_FILE_2
+chmod 600 /home/logging/.ssh/pub_keys/$KEY_FILE_1 /home/logging/.ssh/pub_keys/$KEY_FILE_2
 
 echo "Downloaded public keys for external-kali."
 

@@ -31,7 +31,7 @@ source $SCRIPT_SRC/cfg/config-rsyslog.sh
 source $SCRIPT_SRC/cfg/config-journald.sh
 source $SCRIPT_SRC/cfg/cp-units.sh
 
-source $SCRIPT_SRC/importFiles.sh
+#source $SCRIPT_SRC/importFiles.sh
 
 echo -e "\nConfigure your network...\n"
 echo -e "SKIP this IF you do not use an interfaces file or netplan!\n"

@@ -39,7 +39,7 @@ source $SCRIPT_SRC/cfg/config-journald.sh
 source $SCRIPT_SRC/cfg/central-cp-units.sh
 #source $SCRIPT_SRC/cfg/config-network.sh $team_number $ip_address $subnet_mask
 
-source $SCRIPT_SRC/importFiles.sh
+#source $SCRIPT_SRC/importFiles.sh
 mkdir -p /home/$LOGGINGUSER/.ssh/pub_keys
 
 # Copy the script files to the logging user's pub_keys directory for later download
@@ -53,8 +53,8 @@ tar -czvf /home/$LOGGINGUSER/.ssh/pub_keys/scripts.tar.gz $SCRIPT_SRC
 
 # Run a single command as otheruser
 echo -e "\nMaking private key pairs...\n"
-su - $LOGGINGUSER -c "exec $SCRIPT_DIR/cfg/central-sshMake.sh"
+source $SCRIPT_DIR/cfg/central-sshMake.sh
 
 # For multiple commands, you can combine them in one string
 echo "\nSetting up central ssh logging...\n"
-su - $LOGGINGUSER -c "exec $SCRIPT_DIR/cfg/central-sshConfigSetup.sh $team_number"
+source $SCRIPT_DIR/cfg/central-sshConfigSetup.sh $team_number

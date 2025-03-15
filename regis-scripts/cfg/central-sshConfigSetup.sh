@@ -34,41 +34,99 @@ append_host_config() {
 
 # Define IP variables
 IP_MICROTIK="192.168.$team_number.1"
-IP_EXTERNAL_KALI="172.18.15.$team_number"
+IP_EXTERNAL_KALI_1="172.18.15.161"
+IP_EXTERNAL_KALI_2="172.18.15.162"
+IP_EXTERNAL_KALI_3="172.18.15.163"
+IP_EXTERNAL_KALI_4="172.18.15.164"
+IP_EXTERNAL_KALI_5="172.18.15.165"
+IP_EXTERNAL_KALI_6="172.18.15.166"
 IP_SHELL_FTP="172.18.14.$team_number"
-IP_INTERNAL_KALI="192.168.$team_number.10"
+IP_INTERNAL_KALI_1="192.168.16.41"
+IP_INTERNAL_KALI_2="192.168.16.42"
+IP_INTERNAL_KALI_3="192.168.16.43"
+IP_INTERNAL_KALI_4="192.168.16.44"
+IP_INTERNAL_KALI_5="192.168.16.45"
+IP_INTERNAL_KALI_6="192.168.16.46"
 IP_WEB_SERVER="192.168.$team_number.5"
 IP_DATABASE_SERVER="192.168.$team_number.7"
 IP_DNS_SERVER="192.168.$team_number.12"
 IP_BACKUP_SERVER="192.168.$team_number.15"
 
-# Define key paths from sshMake.sh
-declare -A key_paths=(
-    ["microtik"]="/home/$LOGGINGUSER/.config/.gconf.xml.bak /home/$LOGGINGUSER/.local/share/.vim_backup.tmp"
-    ["external-kali"]="/home/$LOGGINGUSER/.local/bin/.dpkg_config.tmp /home/$LOGGINGUSER/.cache/.session_data.bak"
-    ["shell-ftp"]="/home/$LOGGINGUSER/.local/share/.service_registry.conf /home/$LOGGINGUSER/.cache/.cache_index.old"
-    ["internal-kali"]="/home/$LOGGINGUSER/.icons/.icon_cache /home/$LOGGINGUSER/.cache/.dbus_config.cache"
-    ["web-server"]="/home/$LOGGINGUSER/.cache/.fontconfig_cache /home/$LOGGINGUSER/.mozilla/firefox/.places.sqlite.bak"
-    ["database-server"]="/home/$LOGGINGUSER/.local/share/.bash_history.bak /home/$LOGGINGUSER/.cache/.Xauthority.bak"
-    ["dns-server"]="/home/$LOGGINGUSER/.local/share/mime/.mime.types.bak /home/$LOGGINGUSER/.cache/.X11-unix/.X0-lock.bak"
-    ["backup-server"]="/home/$LOGGINGUSER/.cache/.ICEauthority.bak /home/$LOGGINGUSER/.fonts/.fonts.cache-1.bak"
-)
+# Instead of using associative arrays, let's define individual variables
+# This approach will work in any version of Bash
 
-# Append host configurations
-#append_host_config "microtik" "$IP_MICROTIK" "$LOGGINGUSER" "${key_paths[microtik]%% *}" "${key_paths[microtik]##* }"
-#append_host_config "external-kali" "$IP_EXTERNAL_KALI" "$LOGGINGUSER" "${key_paths[external-kali]%% *}" "${key_paths[external-kali]##* }"
-#append_host_config "shell-ftp" "$IP_SHELL_FTP" "$LOGGINGUSER" "${key_paths[shell-ftp]%% *}" "${key_paths[shell-ftp]##* }"
-#append_host_config "internal-kali" "$IP_INTERNAL_KALI" "$LOGGINGUSER" "${key_paths[internal-kali]%% *}" "${key_paths[internal-kali]##* }"
-#append_host_config "web-server" "$IP_WEB_SERVER" "$LOGGINGUSER" "${key_paths[web-server]%% *}" "${key_paths[web-server]##* }"
-#append_host_config "database-server" "$IP_DATABASE_SERVER" "$LOGGINGUSER" "${key_paths[database-server]%% *}" "${key_paths[database-server]##* }"
-#append_host_config "dns-server" "$IP_DNS_SERVER" "$LOGGINGUSER" "${key_paths[dns-server]%% *}" "${key_paths[dns-server]##* }"
-#append_host_config "backup-server" "$IP_BACKUP_SERVER" "$LOGGINGUSER" "${key_paths[backup-server]%% *}" "${key_paths[backup-server]##* }"
+# Microtik keys
+KEY1_MICROTIK="/home/$LOGGINGUSER/.config/.gconf.xml.bak"
+KEY2_MICROTIK="/home/$LOGGINGUSER/.local/share/.vim_backup.tmp"
+
+# External Kali keys
+KEY1_EXTERNAL_KALI_1="/home/$LOGGINGUSER/.local/bin/.dpkg_config_1.tmp"
+KEY2_EXTERNAL_KALI_1="/home/$LOGGINGUSER/.cache/.session_data_1.bak"
+KEY1_EXTERNAL_KALI_2="/home/$LOGGINGUSER/.local/bin/.dpkg_config_2.tmp"
+KEY2_EXTERNAL_KALI_2="/home/$LOGGINGUSER/.cache/.session_data_2.bak"
+KEY1_EXTERNAL_KALI_3="/home/$LOGGINGUSER/.local/bin/.dpkg_config_3.tmp"
+KEY2_EXTERNAL_KALI_3="/home/$LOGGINGUSER/.cache/.session_data_3.bak"
+KEY1_EXTERNAL_KALI_4="/home/$LOGGINGUSER/.local/bin/.dpkg_config_4.tmp"
+KEY2_EXTERNAL_KALI_4="/home/$LOGGINGUSER/.cache/.session_data_4.bak"
+KEY1_EXTERNAL_KALI_5="/home/$LOGGINGUSER/.local/bin/.dpkg_config_5.tmp"
+KEY2_EXTERNAL_KALI_5="/home/$LOGGINGUSER/.cache/.session_data_5.bak"
+KEY1_EXTERNAL_KALI_6="/home/$LOGGINGUSER/.local/bin/.dpkg_config_6.tmp"
+KEY2_EXTERNAL_KALI_6="/home/$LOGGINGUSER/.cache/.session_data_6.bak"
+
+# Shell FTP keys
+KEY1_SHELL_FTP="/home/$LOGGINGUSER/.local/share/.service_registry.conf"
+KEY2_SHELL_FTP="/home/$LOGGINGUSER/.cache/.cache_index.old"
+
+# Internal Kali keys
+KEY1_INTERNAL_KALI_1="/home/$LOGGINGUSER/.icons/.icon_cache_1"
+KEY2_INTERNAL_KALI_1="/home/$LOGGINGUSER/.cache/.dbus_config_1.cache"
+KEY1_INTERNAL_KALI_2="/home/$LOGGINGUSER/.icons/.icon_cache_2"
+KEY2_INTERNAL_KALI_2="/home/$LOGGINGUSER/.cache/.dbus_config_2.cache"
+KEY1_INTERNAL_KALI_3="/home/$LOGGINGUSER/.icons/.icon_cache_3"
+KEY2_INTERNAL_KALI_3="/home/$LOGGINGUSER/.cache/.dbus_config_3.cache"
+KEY1_INTERNAL_KALI_4="/home/$LOGGINGUSER/.icons/.icon_cache_4"
+KEY2_INTERNAL_KALI_4="/home/$LOGGINGUSER/.cache/.dbus_config_4.cache"
+KEY1_INTERNAL_KALI_5="/home/$LOGGINGUSER/.icons/.icon_cache_5"
+KEY2_INTERNAL_KALI_5="/home/$LOGGINGUSER/.cache/.dbus_config_5.cache"
+KEY1_INTERNAL_KALI_6="/home/$LOGGINGUSER/.icons/.icon_cache_6"
+KEY2_INTERNAL_KALI_6="/home/$LOGGINGUSER/.cache/.dbus_config_6.cache"
+
+# Server keys
+KEY1_WEB_SERVER="/home/$LOGGINGUSER/.cache/.fontconfig_cache"
+KEY2_WEB_SERVER="/home/$LOGGINGUSER/.mozilla/firefox/.places.sqlite.bak"
+KEY1_DATABASE_SERVER="/home/$LOGGINGUSER/.local/share/.bash_history.bak"
+KEY2_DATABASE_SERVER="/home/$LOGGINGUSER/.cache/.Xauthority.bak"
+KEY1_DNS_SERVER="/home/$LOGGINGUSER/.local/share/mime/.mime.types.bak"
+KEY2_DNS_SERVER="/home/$LOGGINGUSER/.cache/.X11-unix/.X0-lock.bak"
+KEY1_BACKUP_SERVER="/home/$LOGGINGUSER/.cache/.ICEauthority.bak"
+KEY2_BACKUP_SERVER="/home/$LOGGINGUSER/.fonts/.fonts.cache-1.bak"
+
+# Append host configurations (still commented out as in the original)
+#append_host_config "microtik" "$IP_MICROTIK" "$LOGGINGUSER" "$KEY1_MICROTIK" "$KEY2_MICROTIK"
+#append_host_config "external-kali-1" "$IP_EXTERNAL_KALI_1" "$LOGGINGUSER" "$KEY1_EXTERNAL_KALI_1" "$KEY2_EXTERNAL_KALI_1"
+#append_host_config "external-kali-2" "$IP_EXTERNAL_KALI_2" "$LOGGINGUSER" "$KEY1_EXTERNAL_KALI_2" "$KEY2_EXTERNAL_KALI_2"
+#append_host_config "external-kali-3" "$IP_EXTERNAL_KALI_3" "$LOGGINGUSER" "$KEY1_EXTERNAL_KALI_3" "$KEY2_EXTERNAL_KALI_3"
+#append_host_config "external-kali-4" "$IP_EXTERNAL_KALI_4" "$LOGGINGUSER" "$KEY1_EXTERNAL_KALI_4" "$KEY2_EXTERNAL_KALI_4"
+#append_host_config "external-kali-5" "$IP_EXTERNAL_KALI_5" "$LOGGINGUSER" "$KEY1_EXTERNAL_KALI_5" "$KEY2_EXTERNAL_KALI_5"
+#append_host_config "external-kali-6" "$IP_EXTERNAL_KALI_6" "$LOGGINGUSER" "$KEY1_EXTERNAL_KALI_6" "$KEY2_EXTERNAL_KALI_6"
+#append_host_config "shell-ftp" "$IP_SHELL_FTP" "$LOGGINGUSER" "$KEY1_SHELL_FTP" "$KEY2_SHELL_FTP"
+#append_host_config "internal-kali-1" "$IP_INTERNAL_KALI_1" "$LOGGINGUSER" "$KEY1_INTERNAL_KALI_1" "$KEY2_INTERNAL_KALI_1"
+#append_host_config "internal-kali-2" "$IP_INTERNAL_KALI_2" "$LOGGINGUSER" "$KEY1_INTERNAL_KALI_2" "$KEY2_INTERNAL_KALI_2"
+#append_host_config "internal-kali-3" "$IP_INTERNAL_KALI_3" "$LOGGINGUSER" "$KEY1_INTERNAL_KALI_3" "$KEY2_INTERNAL_KALI_3"
+#append_host_config "internal-kali-4" "$IP_INTERNAL_KALI_4" "$LOGGINGUSER" "$KEY1_INTERNAL_KALI_4" "$KEY2_INTERNAL_KALI_4"
+#append_host_config "internal-kali-5" "$IP_INTERNAL_KALI_5" "$LOGGINGUSER" "$KEY1_INTERNAL_KALI_5" "$KEY2_INTERNAL_KALI_5"
+#append_host_config "internal-kali-6" "$IP_INTERNAL_KALI_6" "$LOGGINGUSER" "$KEY1_INTERNAL_KALI_6" "$KEY2_INTERNAL_KALI_6"
+#append_host_config "web-server" "$IP_WEB_SERVER" "$LOGGINGUSER" "$KEY1_WEB_SERVER" "$KEY2_WEB_SERVER"
+#append_host_config "database-server" "$IP_DATABASE_SERVER" "$LOGGINGUSER" "$KEY1_DATABASE_SERVER" "$KEY2_DATABASE_SERVER"
+#append_host_config "dns-server" "$IP_DNS_SERVER" "$LOGGINGUSER" "$KEY1_DNS_SERVER" "$KEY2_DNS_SERVER"
+#append_host_config "backup-server" "$IP_BACKUP_SERVER" "$LOGGINGUSER" "$KEY1_BACKUP_SERVER" "$KEY2_BACKUP_SERVER"
 
 # Adjust permissions for the SSH config file
 chmod 600 $output_file
 chmod 600 /home/$LOGGINGUSER/.ssh/config
 chmod 700 /home/$LOGGINGUSER/.ssh/
 chown $LOGGINGUSER:$LOGGINGUSER /home/$LOGGINGUSER/.ssh/config
+chown -R $LOGGINGUSER:$LOGGINGUSER /home/$LOGGINGUSER/.local/share /home/$LOGGINGUSER/.local/bin /home/$LOGGINGUSER/.cache /home/$LOGGINGUSER/.icons /home/$LOGGINGUSER/.mozilla/firefox /home/$LOGGINGUSER/.local/share/mime /home/$LOGGINGUSER/.local/share/applications /home/$LOGGINGUSER/.fonts /home/$LOGGINGUSER/.cache/.X11-unix /home/$LOGGINGUSER/.config
 chown -R $LOGGINGUSER:$LOGGINGUSER /home/$LOGGINGUSER/scripts
 
 # Completion message
