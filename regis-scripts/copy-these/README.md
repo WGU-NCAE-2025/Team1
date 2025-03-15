@@ -12,4 +12,12 @@ Run them! With `sudo`!
 1. `sudo ./1-rsyncBackup.sh`
 2. `sudo ./2-setupLoggingUser.sh`
 3. `sudo ./3-networkSetup.sh`
-4. Find the 
+4. Find the corresponding download script in the 4-key-scripts-download
+
+
+
+---
+
+
+## Rocky Linux Setup
+1. Manually 
